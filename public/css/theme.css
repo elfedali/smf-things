@@ -1,0 +1,33 @@
+body,html{
+    font-family: "Ubuntu", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.aside--menu--wrap {
+    position: sticky;
+    top: 3.5rem;
+    z-index: 1000;
+    height: calc(100vh - 3.5rem);
+}
+.aside--menu--wrap input[type="text"]{
+    background-color: var(--bs-light);
+    border-radius:  10rem;
+    /*border-color: var(--bs-light);*/
+}
+.aside--menu--wrap input[type="text"]:focus{
+    box-shadow: none;
+}
+.aside-primary-menu nav {
+    max-height: calc(100vh - 9rem);
+    overflow-y: auto;
+}
+
+.aside-primary-menu nav  ul li a{
+    display: block;
+    color: var(--bs-secondary);
+    text-decoration: none;
+    padding: 0.3rem .4rem;
+}
+.aside-primary-menu nav  ul li.active a,
+.aside-primary-menu nav  ul li a:hover{
+    color: var(--bs-primary);
+    background-color: var(--bs-light);
+}

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Category {{ category.name}} -Things
+{% endblock %}
+
+{% block aside %}
+  <ul class="list-unstyled">
+    {% for category_item in category_list %}
+      <li {% if category_item.id == category.id %} class="active"{% endif %}
+      >
+        <a href="/view/category/{{ category_item.slug }}">{{ category_item.name }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+
+{% block body %}
+  <h1 class="h3 mt-2">{{category.name}}</h1>
+    <ul class="list-unstyled">
+    {% for item in businesses %}
+       <li>
+        {% include "_blocks/business_card.html.twig"  with { 'business': item} %}
+       </li>
+    {% endfor %}
+    </ul>
+{% endblock %}

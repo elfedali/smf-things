@@ -3,10 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
+ * @ORM\Table(name="`categories`")
  */
 class Category
 {
@@ -26,6 +29,16 @@ class Category
      * @ORM\Column(type="string", length=255)
      */
     private $slug;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Business::class, mappedBy="category")
+     */
+    private $businesses;
+
+    public function __construct()
+    {
+        $this->businesses = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -54,5 +67,42 @@ class Category
         $this->slug = $slug;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Business[]
+     */
+    public function getBusinesses(): Collection
+    {
+        return $this->businesses;
+    }
+
+    public function addBusiness(Business $business): self
+    {
+        if (!$this->businesses->contains($business)) {
+            $this->businesses[] = $business;
+            $business->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBusiness(Business $business): self
+    {
+        if ($this->businesses->removeElement($business)) {
+            // set the owning side to null (unless already changed)
+            if ($business->getCategory() === $this) {
+                $business->setCategory(null);
+            }
+        }
+
+        return $this;
+    }
+    /**
+     * toString
+     */
+    public function __toString()
+    {
+        return $this->name;
     }
 }
