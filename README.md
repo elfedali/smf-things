@@ -1,0 +1,3 @@
+# smf-things
+symfony project
+
